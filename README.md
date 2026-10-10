@@ -45,7 +45,7 @@ Monitoring & Logging
 * [5. DevOps Workflow](#5-devops-workflow)
 * [6. Phase 1 — Git and GitHub](#6-phase-1--git-and-github)
 * [7. Phase 2 — GitHub Actions CI](#7-phase-2--github-actions-ci)
-* [8. Phase 3 — Docker](#8-phase-3--docker)
+* [8. Phase 3 — Docker](#9-phase-3--docker)
 * [9. Phase 4 — Docker Security](#9-phase-4--docker-security)
 * [10. Phase 5 — Container Registry](#10-phase-5--container-registry)
 * [11. Phase 6 — Cloud VPS](#11-phase-6--cloud-vps)
@@ -545,7 +545,7 @@ If everything succeeds:
 
 # 9. Phase 3 — Docker
 
-# 9.1 .dockerignore
+## 9.1 .dockerignore
 
 Before Creating DockerFile and testing it create .dockerignore
 

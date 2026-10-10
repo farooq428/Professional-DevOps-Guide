@@ -1,0 +1,60 @@
+```dockerignore
+# Dependencies
+node_modules
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Next.js build output
+.next
+out
+
+# Production build output
+build
+dist
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Git
+.git
+.gitignore
+
+# GitHub Actions and documentation
+.github
+README.md
+
+# Testing and coverage
+coverage
+.nyc_output
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Docker
+Dockerfile*
+docker-compose*
+compose*.yaml
+compose*.yml
+.dockerignore
