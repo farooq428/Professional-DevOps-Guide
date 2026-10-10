@@ -812,7 +812,7 @@ Instead use environment variables during deployment.
 
 ---
 
-# 14. Docker Image Security Scan
+# 10.2 Docker Image Security Scan
 
 A professional pipeline should scan images.
 
@@ -833,7 +833,123 @@ If serious vulnerabilities are found:
 ❌ Security Scan Failed
 ```
 
----
+### Trivy Configuration
+
+| Setting | Purpose |
+|---|---|
+| `scan-type: image` | Scans a Docker image. |
+| `image-ref` | Specifies the image created in the previous step. |
+| `format: table` | Displays scan results in a readable table. |
+| `exit-code: '1'` | Returns a failure status when findings match the configured scan criteria. |
+| `ignore-unfixed: true` | Ignores vulnerabilities without an available fix. |
+| `vuln-type: os,library` | Checks operating system packages and application libraries. |
+| `severity: CRITICAL,HIGH` | Selects critical and high severity vulnerabilities. |
+```
+
+
+
+```
+
+## 10.3 — Complete CI Pipeline with Docker & Security Scanning
+
+### ⚠️ Important Notes
+
+- The workflow builds and scans the Docker image locally on the GitHub Actions runner.
+
+Add the following code to `ci.yml` file.
+
+```yaml
+name: Next.js CI
+
+# 1. Workflow triggers
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+# 2. Minimum required permissions
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    name: Lint, Build, Docker and Security Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      # 3. Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 4. Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # 5. Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # 6. Run ESLint
+      - name: Run ESLint
+        run: npm run lint
+
+      # 7. TypeScript type check
+      - name: TypeScript type check
+        run: npx tsc --noEmit
+
+      # 8. Build Next.js application
+      - name: Build Next.js application
+        run: npm run build
+
+      # 9. Build Docker image
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t testing-image:${{ github.sha }} \
+            .
+
+      # 10. Scan Docker image with Trivy
+      - name: Trivy Security Scan
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: image
+          image-ref: testing-image:${{ github.sha }}
+          format: table
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: os,library
+          severity: CRITICAL,HIGH
+```
+
+
+### 📌 CI Pipeline Checklist
+
+- [x] GitHub Actions workflow triggers
+- [x] Repository checkout
+- [x] Node.js setup
+- [x] Dependency installation
+- [x] ESLint code quality check
+- [x] TypeScript type check
+- [x] Next.js production build
+- [x] Docker image build
+- [x] Trivy Docker image vulnerability scan
+- [ ] Push Docker image to Docker Hub
+- [ ] Deploy to cloud VPS
+- [ ] Configure Docker Compose
+- [ ] Configure Nginx and HTTPS/SSL
+- [ ] Connect custom domain
+
+
 
 # 15. Phase 5 — Container Registry
 
