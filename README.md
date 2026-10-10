@@ -363,6 +363,8 @@ CD = Continuous Deployment
 
 # 6. Phase 1 — Git and GitHub
 
+> make sure have installed git and linked it to your github account.
+
 ## 6.1 Initialize Git
 
 Inside the project:
