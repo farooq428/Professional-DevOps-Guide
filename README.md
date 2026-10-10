@@ -951,7 +951,7 @@ jobs:
 
 
 
-# 15. Phase 5 — Container Registry
+# 15. Phase 5 — Container Registry (Push image to Docker Hub)
 
 A registry stores Docker images.
 
@@ -967,15 +967,91 @@ or:
 GitHub Container Registry
 ```
 
-Recommended GitHub-based architecture:
+> We will Use Docker Hub in this tutorial
+
+
+
+### 15.2 Push Docker Image to Docker Hub
+
+> **Prerequisites:** Docker is installed, a Dockerfile is created, and you have a Docker Hub account.
+
+### 🔹 Step 1: Login to Docker Hub
+
+Authenticate your local Docker CLI with your Docker Hub account.
+
+**1. Run the login command**
+
+```powershell
+docker login -u <YOUR_USERNAME>
+```
+
+**2. Generate an Access Token**
+
+Go to:
+
+`Docker Hub → Account Settings → Personal Access Tokens`
+
+- Generate a new access token.
+- Copy the token and keep it secure.
+
+**3. Enter your credentials**
+
+When Docker prompts for a password, paste your access token and press `Enter`.
+
+**4. Verify the login**
+
+If authentication is successful, you will see:
 
 ```text
-GitHub Repository
-       │
-       ├── GitHub Actions
-       │
-       └── GHCR
+Login Succeeded
 ```
+
+> [!TIP]
+> Use an access token instead of your account password. Never share your token or commit it to GitHub.
+
+### Step 2: Build Docker Image
+
+```powershell
+docker build -t your-username/devops-practice:latest .
+```
+
+- `-t`: Assigns a name and tag to the image.
+- `latest`: Image tag.
+- `.`: Current directory as the build context.
+
+### Step 3: Verify the Image
+
+```powershell
+docker images
+```
+
+### Step 4: Push Image to Docker Hub
+
+```powershell
+docker push your-username/image-name:latest
+```
+
+### Step 5: Pull Image from Docker Hub
+
+```powershell
+docker pull your-username/image-name:latest
+```
+
+### Step 6: Run the Container
+
+```powershell
+docker run -d --name container-name -p 3000:3000 your-username/image-name:latest
+```
+
+Open `http://localhost:3000` to test the application.
+
+### Security Best Practices
+
+- Never include `.env` files or secrets in the Docker image.
+
+**Workflow:**
+
+`Dockerfile → Build Image → Security Scan → Docker Hub → Cloud VPS`
 
 ---
 
