@@ -363,9 +363,17 @@ CD = Continuous Deployment
 
 # Now We Will Start Working on all Practical Phases Step By Step
 
+#### We Will Use a Next.js Project an Example
+
 ## 6. Phase 1 — Git and GitHub
 
 > Clone the existing GitHub repository directly into your parent folder.
+
+### Prerequisites
+> - Git installed and configured.
+> - GitHub account connected to Git.
+> - `.gitignore` file configured.
+
 
 **### 6.1 Clone Repository**
 
