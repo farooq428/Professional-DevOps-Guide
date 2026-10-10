@@ -619,15 +619,32 @@ compose*.yaml
 compose*.yml
 .dockerignore
 ```
-```
+
+
 
 Never copy unnecessary files into the Docker image.
 
 ---
 
+
+
 # 9.2 Dockerfile
 
 The application should be containerized before deployment.
+
+This requires the Next.js application to use standalone output.
+
+In `next.config.ts`:
+
+```typescript
+const nextConfig = {
+  output: "standalone",
+};
+
+export default nextConfig;
+```
+
+### Now
 
 In Root folder create:
 
@@ -681,17 +698,7 @@ ENV PORT=3000
 CMD ["node", "server.js"]
 ```
 
-This requires the Next.js application to use standalone output.
 
-In `next.config.ts`:
-
-```typescript
-const nextConfig = {
-  output: "standalone",
-};
-
-export default nextConfig;
-```
 
 ---
 
