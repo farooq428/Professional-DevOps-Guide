@@ -1,3 +1,5 @@
+import EnvTest from "./components/EnvTest";
+
 
 export default function Page() {
   return (
@@ -119,6 +121,8 @@ export default function Page() {
         </footer>
 
       </section>
+
+      <EnvTest></EnvTest>
     </main>
   );
 }
