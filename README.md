@@ -446,10 +446,11 @@ Create:
     └── ci.yml
 ```
 
-Example:
+Example: For Simple Next.js Application 
 
 ```yaml
-name: CI
+
+name: Next.js CI
 
 on:
   push:
@@ -461,31 +462,49 @@ on:
     branches:
       - main
 
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  
+# add later if needed
+# concurrency:
+#   group: ci-${{ github.workflow }}-${{ github.ref }}
+#   cancel-in-progress: true
+
 jobs:
   ci:
+    name: Lint, Type Check and Build
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Download repository code
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 2. Set up Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
 
+      # 3. Install dependencies
       - name: Install dependencies
         run: npm ci
 
-      - name: Run lint
+      # 4. Check code quality
+      - name: Run ESLint
         run: npm run lint
 
-      - name: Type check
+      # 5. Check TypeScript types
+      - name: TypeScript type check
         run: npx tsc --noEmit
 
-      - name: Build application
+      # 6. Build the production application
+      - name: Build Next.js application
         run: npm run build
+
 ```
 
 ---
