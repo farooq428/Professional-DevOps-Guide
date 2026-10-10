@@ -361,54 +361,70 @@ CD = Continuous Deployment
 
 ---
 
-# 6. Phase 1 — Git and GitHub
+# Now We Will Start Working on all Practical Phases Step By Step
 
-> make sure have installed git and linked it to your github account.
+## 6. Phase 1 — Git and GitHub
 
-## 6.1 Initialize Git
+> Clone the existing GitHub repository directly into your parent folder.
 
-Inside the project:
+**### 6.1 Clone Repository**
+
+Navigate to the parent folder:
 
 ```bash
-git init
+cd D:\WebProjects
 ```
 
-Check status:
+Clone the repository:
+
+```bash
+git clone https://github.com/faroq428/devops-professional-gude.git
+```
+
+**---
+
+### 6.2 Open Project**
+
+```bash
+cd devops-professional-gude
+code .
+```
+
+**---
+
+### 6.3 Verify Git Setup**
+
+Check repository status:
 
 ```bash
 git status
 ```
 
----
+Check remote connection:
 
-## 6.2 Add Files
+```bash
+git remote -v
+```
+
+**---
+
+### 6.4 Push Changes to GitHub**
 
 ```bash
 git add .
+git commit -m "Update project files"
+git push
 ```
 
-Commit:
+**---
+
+### 6.5 Pull Latest Changes**
 
 ```bash
-git commit -m "Initial project setup"
+git pull
 ```
 
----
-
-## 6.3 Connect GitHub
-
-```bash
-git remote add origin https://github.com/USERNAME/REPOSITORY.git
-```
-
-Push:
-
-```bash
-git branch -M main
-git push -u origin main
-```
-
----
+**---**
 
 # 7. Phase 2 — GitHub Actions CI
 
