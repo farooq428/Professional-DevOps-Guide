@@ -466,7 +466,7 @@ on:
 
 permissions:
   contents: read
-  
+
 # add later if needed
 # concurrency:
 #   group: ci-${{ github.workflow }}-${{ github.ref }}
@@ -545,9 +545,91 @@ If everything succeeds:
 
 # 9. Phase 3 — Docker
 
-The application should be containerized before deployment.
+# 9.1 .dockerignore
+
+Before Creating DockerFile and testing it create .dockerignore
 
 Create:
+
+```text
+.dockerignore
+```
+
+Example:
+
+```text
+```dockerignore
+# Dependencies
+node_modules
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Next.js build output
+.next
+out
+
+# Production build output
+build
+dist
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Git
+.git
+.gitignore
+
+# GitHub Actions and documentation
+.github
+README.md
+
+# Testing and coverage
+coverage
+.nyc_output
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Docker
+Dockerfile*
+docker-compose*
+compose*.yaml
+compose*.yml
+.dockerignore
+```
+```
+
+Never copy unnecessary files into the Docker image.
+
+---
+
+# 9.2 Dockerfile
+
+The application should be containerized before deployment.
+
+In Root folder create:
 
 ```text
 Dockerfile
@@ -613,7 +695,7 @@ export default nextConfig;
 
 ---
 
-# 10. Why Multi-Stage Docker Builds?
+# 9.3 Why Multi-Stage Docker Builds?
 
 Instead of putting everything inside the final image:
 
@@ -646,34 +728,9 @@ Benefits:
 
 ---
 
-# 11. .dockerignore
 
-Create:
 
-```text
-.dockerignore
-```
-
-Example:
-
-```text
-node_modules
-.next
-.git
-.github
-.env
-.env.local
-npm-debug.log
-README.md
-Dockerfile
-docker-compose.yml
-```
-
-Never copy unnecessary files into the Docker image.
-
----
-
-# 12. Build Docker Image Locally
+# 9.4 Build Docker Image Locally
 
 Build:
 
@@ -708,7 +765,7 @@ docker stop CONTAINER_ID
 
 ---
 
-# 13. Phase 4 — Docker Security
+# 10. Phase 4 — Docker Security
 
 Production containers should follow security best practices.
 
