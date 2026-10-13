@@ -1057,58 +1057,45 @@ Open `http://localhost:3000` to test the application.
 
 # 16. Docker Image Tagging
 
-Avoid relying only on:
-
-```text
-latest
-```
-
-Use unique tags.
-
-Example:
+Docker image tagging is the process of assigning a name and version to a Docker image. Tags help us identify, manage, deploy, and `roll back` different versions of an application.
 
 ```text
 my-app:1.0.0
 ```
 
-or:
+Here:
+- `my-app` is the image name.
+- `1.0.0` is the image tag.
+
+##### Why Is Image Tagging Important?
+
+Imagine you deploy a new version of your application, but it contains a bug. If you have tagged your images properly, you can quickly identify and redeploy the previous working version.
+
+### 16.1 Git Commit SHA Tags
 
 ```text
 my-app:abc1234
 ```
 
-where `abc1234` is a Git commit SHA.
+A Git commit SHA identifies a particular commit in your repository.
 
-A good strategy is:
+For example:
 
 ```text
-my-app:latest
-my-app:<commit-sha>
+my-app:a1b2c3d
 ```
 
-The SHA gives you an exact version.
+This tag helps connect a Docker image to the source code used to build it.
+
+For better traceability, use the full commit SHA when practical.
+
 
 ---
 
-# 17. Login to Docker Hub
+# 17 
 
-```bash
-docker login
-```
 
-Build:
 
-```bash
-docker build -t USERNAME/my-app:1.0.0 .
-```
-
-Push:
-
-```bash
-docker push USERNAME/my-app:1.0.0
-```
-
----
 
 # 18. GitHub Actions — Docker Build and Push
 
